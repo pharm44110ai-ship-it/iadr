@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>iADR</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="iADR">
+<meta name="theme-color" content="#0F3D75">
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;background:#F3F7FC;color:#16263D;display:grid;place-items:center;min-height:100vh;padding:20px;box-sizing:border-box}
+  .c{max-width:440px;width:100%;background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 30px rgba(15,61,117,.12);text-align:center}
+  img{width:96px;height:96px;border-radius:22px}
+  h1{margin:12px 0 2px;color:#0F3D75;font-size:24px}
+  p{color:#5E708A;line-height:1.6;font-size:14px;margin:6px 0}
+  a.b{display:block;background:#1E78D2;color:#fff;text-decoration:none;font-weight:700;padding:15px;border-radius:14px;margin:20px 0 14px;font-size:17px}
+  .how{text-align:left;background:#EAF4FF;border-radius:14px;padding:12px 16px;font-size:13.5px;color:#0F3D75;line-height:1.7;margin-top:10px}
+  .warn{background:#FDECEC;color:#B3261E;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-top:12px;display:none}
+</style>
+</head>
+<body>
+<div class="c">
+  <img src="icon-192.png" alt="iADR">
+  <h1>iADR</h1>
+  <p>Intensive ADR Monitoring<br>งานเฝ้าระวังอาการไม่พึงประสงค์จากการใช้ยา<br>โรงพยาบาลพยัคฆภูมิพิสัย</p>
+  <a class="b" id="open" href="#">เปิด iADR</a>
+  <div class="warn" id="warn">ยังไม่ได้ตั้งลิงก์แอป: แก้บรรทัด APP_URL ในไฟล์ index.html</div>
+  <div class="how">
+    <b>เพิ่มไอคอนลงหน้าจอโฮม</b><br>
+    iPhone (Safari): ปุ่มแชร์ &rarr; เพิ่มไปยังหน้าจอโฮม<br>
+    Android (Chrome): เมนู &#8942; &rarr; เพิ่มลงในหน้าจอหลัก / ติดตั้งแอป
+  </div>
+  <p style="font-size:12px;margin-top:14px">หน้านี้เป็นเพียงตัวเปิดแอป ไม่มีข้อมูลผู้ป่วย</p>
+</div>
+<script>
+  // *** แก้ตรงนี้: วางลิงก์เว็บแอป iADR (ลงท้ายด้วย /exec) ระหว่างเครื่องหมายคำพูด ***
+  var APP_URL = 'https://script.google.com/macros/s/AKfycbw9zNDhQ7tnxXPgza9bgftbR8g8h8-e3IEl_gwx-YJJgT4Hzwt1s0TCVgck1bpjQr_djA/exec';
+
+  var ok = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(APP_URL);
+  var a = document.getElementById('open');
+  if (!ok) { document.getElementById('warn').style.display = 'block'; a.style.opacity = '.5'; a.removeAttribute('href'); }
+  else {
+    a.href = APP_URL;
+    // เปิดจากไอคอนบนหน้าจอโฮม (โหมดแอป) ให้เด้งเข้า iADR ทันที ส่วนเปิดในเบราว์เซอร์ปกติจะแสดงหน้านี้ เพื่อให้เพิ่มไอคอนได้
+    var standalone = (window.navigator.standalone === true) || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    if (standalone) location.replace(APP_URL);
+  }
+</script>
+</body>
+</html>
